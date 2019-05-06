@@ -1,0 +1,66 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>FlappyBird</title>
+     <style>
+         *{
+             margin: 0;
+             padding: 0;
+         }
+        canvas{
+            display: block;
+            border: 1px solid skyblue;
+            margin: 0 auto;
+        }
+     </style>
+ </head>
+ <body>
+     <canvas id="myCanvas" width="360" height="512"></canvas>
+     <script src="js/Bird.js"></script>
+     <script src="js/Background.js"></script>
+     <script src="js/Pipe.js"></script>
+     <script src="js/Tit.js"></script>
+     <script src="js/Index.js"></script>
+     <script src="js/Gameover.js"></script>
+     <script src="js/Game.js"></script>  
+     <script>
+     var arr = ["images/bird0_0.png", "images/bird0_1.png", "images/bird0_2.png", "images/bg_day.png", "images/land.png", "images/pipe_down.png", "images/pipe_up.png","images/text_game_over.png","images/text_ready.png","images/title.png","images/tutorial.png","images/bg_night.png","images/bird1_0.png", "images/bird1_1.png", "images/bird1_2.png","images/bird2_0.png", "images/bird2_1.png", "images/bird2_2.png","images/medals_3.png","images/medals_2.png","images/medals_1.png","images/score_panel.png","images/number_score_00.png","images/number_score_01.png","images/number_score_02.png","images/number_score_03.png","images/number_score_04.png","images/number_score_05.png","images/number_score_06.png","images/number_score_07.png","images/number_score_08.png","images/number_score_09.png"];
+     
+     Imgonload(arr,function(loadImgarr){
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var bird = new Bird(loadImgarr.slice(0,3),loadImgarr.slice(12,15),loadImgarr.slice(15,18),100,100);
+        var pipe = new Pipe(loadImgarr[5],loadImgarr[6],4,360);
+        var land = new Background(loadImgarr[4],4,0,400);
+        var mountain = new Background(loadImgarr[3],2,0,0);
+        var tit = new Tit(loadImgarr[9],0,0);
+        var index = new Index(loadImgarr[8],loadImgarr[10],loadImgarr[11]);
+        var gameover = new Gameover(loadImgarr[7],loadImgarr.slice(22),loadImgarr.slice(18,21),loadImgarr[21]);
+        var bestscore = 0;
+        var game = new Game(ctx,bird,pipe,land,mountain,tit,index,gameover,bestscore);
+        
+ 
+     })
+     function Imgonload(arr,callback){
+     var loadImgarr = [];
+     var idx = 0;
+     arr.forEach(function(value, index) {
+     // 创建图片元素
+         var img = new Image();
+         // 设置路径
+         img.src = value;
+         img.onload = function() {
+             idx++;
+             loadImgarr[index] = this;
+             if (idx === arr.length) {
+                 callback(loadImgarr);
+             }
+         }	
+     })          
+     }
+     </script>
+ </body>
+ </html>
